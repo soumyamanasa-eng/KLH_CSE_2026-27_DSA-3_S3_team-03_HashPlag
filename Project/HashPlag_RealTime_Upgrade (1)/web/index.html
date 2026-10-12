@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="HashPlag document similarity and academic integrity analysis.">
+<title>HashPlag Detect</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="brand"><div class="brand-mark">H</div><div><h1>HashPlag <span>Detect</span></h1><p>Document similarity &amp; academic integrity workspace</p></div></div>
+  <div id="accountBar" class="account-bar hidden"><span id="accountLabel" class="account-label"></span><button id="btnLogout" class="button button-quiet">Sign out</button></div>
+</header>
+<main>
+  <section id="loginCard" class="card login-card">
+    <div class="eyebrow">WELCOME BACK</div>
+    <h2>Sign in to HashPlag</h2>
+    <p class="muted">Use a student, faculty, or administrator demo account. Local demo passwords can be changed with environment variables before deployment.</p>
+    <form id="loginForm" class="login-form">
+      <label>Username<input id="loginUsername" name="username" autocomplete="username" required placeholder="student"></label>
+      <label>Password<input id="loginPassword" name="password" type="password" autocomplete="current-password" required placeholder="Enter password"></label>
+      <button id="btnLogin" class="button button-primary" type="submit">Sign in</button>
+      <p id="loginStatus" class="status" role="status"></p>
+    </form>
+    <div class="demo-credentials"><b>Local demo accounts</b><span>Student: <code>student / student123</code></span><span>Faculty: <code>faculty / faculty123</code></span><span>Admin: <code>admin / admin123</code></span></div>
+    <p class="small muted">Demo credentials are for local testing only. Set strong environment passwords before exposing the app publicly.</p>
+  </section>
+
+  <div id="appWorkspace" class="hidden">
+    <section class="welcome-row">
+      <div><div class="eyebrow">DOCUMENT ANALYSIS</div><h2>Similarity workspace</h2><p class="muted">Compare uploaded documents, inspect matching lines, and keep reports for later.</p></div>
+      <div class="feature-pill"><span class="pulse-dot"></span> Local analysis engine</div>
+    </section>
+
+    <section class="grid-two">
+      <section class="card">
+        <div class="section-heading"><span class="step">01</span><div><h2>Upload documents</h2><p class="muted">Choose at least two documents or a folder.</p></div></div>
+        <div id="drop" class="drop-zone" tabindex="0" role="button" aria-label="Choose or drop files">
+          <div class="upload-icon">↑</div><h3>Drop files to add them</h3><p>or click to browse your computer</p>
+          <span class="small muted">PDF, DOCX, PPTX, XLSX, ODT, RTF, TXT, Markdown, and code files</span>
+        </div>
+        <input id="fileInput" type="file" accept=".pdf,.docx,.dotx,.pptx,.xlsx,.odt,.odp,.ods,.rtf,.html,.htm,.txt,.md,.csv,.tsv,.log,.json,.xml,.java,.py,.c,.cpp,.js,.css,.tex" multiple hidden>
+        <input id="folderInput" type="file" webkitdirectory multiple hidden>
+        <div class="toolbar"><button id="btnFiles" class="button button-secondary">Choose files</button><button id="btnFolder" class="button button-secondary">Choose folder</button><button id="btnClear" class="button button-quiet">Clear</button></div>
+        <ul id="fileList" class="file-list"></ul>
+      </section>
+
+      <section class="card">
+        <div class="section-heading"><span class="step">02</span><div><h2>Analysis settings</h2><p class="muted">Tune the comparison to the type of content.</p></div></div>
+        <label class="field-label" for="mode">Comparison mode</label>
+        <select id="mode" class="input-control"><option value="text">Document text</option><option value="code">Programming assignments (token-normalized)</option></select>
+        <p class="small muted">Code mode normalizes many variable names and literals. It is a basic token comparison, not a compiler or syntax-tree detector.</p>
+        <div class="range-heading"><label for="window">Character window size</label><strong><span id="wLabel">30</span> chars</strong></div>
+        <input id="window" type="range" min="10" max="100" value="30">
+        <div class="range-ends"><span>10 · shorter phrases</span><span>100 · longer phrases</span></div>
+        <div class="compare-actions"><button id="btnCompare" class="button button-primary button-wide" disabled>Compare documents</button><button id="btnCancel" class="button button-quiet hidden" type="button">Cancel scan</button></div>
+        <p id="status" class="status" role="status">Select at least two documents.</p>
+        <div id="progressWrap" class="progress-wrap hidden"><div class="progress-meta"><span id="progressMessage">Preparing scan...</span><b id="progressPercent">0%</b></div><div class="progress-track"><div id="progressFill" class="progress-fill"></div></div></div>
+      </section>
+    </section>
+
+    <section class="card web-search-card">
+      <div class="section-heading"><span class="step">03</span><div><h2>Find possible internet sources</h2><p class="muted">Search the public web for a matching phrase from your report.</p></div></div>
+      <div class="search-row"><input id="webQuery" class="input-control" placeholder="Enter a distinctive phrase (at least 12 characters)"><button id="btnWebSearch" class="button button-secondary">Search web</button></div>
+      <p class="small muted">Uses public web search when reachable. Search results are possible sources only and must be checked manually. Never treat a match as proof of plagiarism.</p>
+      <div id="webResults" class="web-results"></div>
+    </section>
+
+    <section id="results" class="results-area"></section>
+
+    <section class="card history-card">
+      <div class="section-heading"><span class="step">04</span><div><h2>Saved scan history</h2><p class="muted">Reports are saved locally by the server. Students see their own scans; faculty and admins can see all scans.</p></div><button id="btnRefreshHistory" class="button button-quiet">Refresh</button></div>
+      <div id="historyList" class="history-list"><p class="muted small">Loading history...</p></div>
+    </section>
+    <footer class="app-footer">HashPlag uses Rabin–Karp + Polynomial Rolling Hash. Word n-gram overlap is a lexical clue, not semantic similarity. AI-style analysis is experimental and cannot determine authorship.</footer>
+  </div>
+</main>
+<script src="app.js"></script>
+</body>
+</html>

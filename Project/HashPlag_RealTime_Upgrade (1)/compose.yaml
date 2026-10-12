@@ -1,0 +1,16 @@
+services:
+  hashplag:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      PORT: "8080"
+      OPEN_BROWSER: "false"
+      HASHPLAG_DATA_DIR: /app/data
+      HASHPLAG_ADMIN_PASSWORD: ${HASHPLAG_ADMIN_PASSWORD:-admin123}
+      HASHPLAG_FACULTY_PASSWORD: ${HASHPLAG_FACULTY_PASSWORD:-faculty123}
+      HASHPLAG_STUDENT_PASSWORD: ${HASHPLAG_STUDENT_PASSWORD:-student123}
+      HASHPLAG_COOKIE_SECURE: ${HASHPLAG_COOKIE_SECURE:-false}
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped

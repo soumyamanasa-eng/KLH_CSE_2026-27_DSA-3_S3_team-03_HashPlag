@@ -1,0 +1,1 @@
+Data structures and algorithms form the foundation of computer science. A hash table stores key value pairs and offers constant time lookups on average. The Rabin-Karp algorithm uses a rolling hash to search for patterns inside a larger text efficiently. Plagiarism is the act of presenting someone else's work as your own without giving proper credit.

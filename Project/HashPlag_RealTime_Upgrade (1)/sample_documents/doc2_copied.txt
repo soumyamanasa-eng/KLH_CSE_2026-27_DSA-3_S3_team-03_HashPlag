@@ -1,0 +1,1 @@
+In this report we explain a few ideas. The Rabin-Karp algorithm uses a rolling hash to search for patterns inside a larger text efficiently. Many students enjoy learning about sorting and graphs. Plagiarism is the act of presenting someone else's work as your own without giving proper credit. Thank you for reading.
